@@ -1,0 +1,43 @@
+<!-- 13. Write an HTML file with JavaScript that finds position of first occurrence of vowel “a”, 
+last occurrence of vowel “a” in a given word and returns the string between them. (B) -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vowel Position Finder</title>
+</head>
+<body>
+    <h1>Find Position of First and Last 'a'</h1>
+    <h2 id="result"></h2>
+
+    <script>
+        let word = prompt("Enter a word:");
+        let result = document.getElementById("result");
+
+        if (!word) {
+            result.innerHTML = "No input provided!";
+        } else {
+            word = word.toLowerCase();
+            let firstPos = word.indexOf("a");
+            let lastPos = word.lastIndexOf("a");
+
+            if (firstPos === -1) {
+                result.innerHTML = "No 'a' found in the word.";
+            } else {
+                let first = firstPos + 1;
+                let last = lastPos + 1;
+                let between = word.slice(firstPos + 1, lastPos) || "(empty)";
+
+                result.innerHTML = `
+                    Word: <b>${word}</b><br>
+                    First occurrence of 'a': <b>${first}</b><br>
+                    Last occurrence of 'a': <b>${last}</b><br>
+                    String between them: <b>${between}</b>
+                `;
+            }
+        }
+    </script>
+</body>
+</html>
