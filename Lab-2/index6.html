@@ -1,0 +1,53 @@
+<!-- WAP to prepare student registration form and validate it using JavaScript -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Program-6</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+</head>
+<body>
+    <div class="p-5 max-w-md mx-auto">
+        <h2 class="text-2xl font-bold mb-4">Student Registration Form</h2>
+        <form id="registrationForm" class="border border-gray-300 p-5 rounded" onsubmit="return validateForm()">
+            <div class="mb-4">
+                <label class="block mb-1" for="name">Name:</label>
+                <input type="text" id="name" class="w-full border-2 border-gray-300 p-2 rounded" />
+            </div>
+            <div class="mb-4">
+                <label class="block mb-1" for="email">Email:</label>
+                <input type="text" id="email" class="w-full border-2 border-gray-300 p-2 rounded" />
+            </div>
+            <div class="mb-4">
+                <label class="block mb-1" for="age">Age:</label>
+                <input type="number" id="age" class="w-full border-2 border-gray-300 p-2 rounded" />
+            </div>
+            <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold p-3 rounded">Register</button>
+        </form>
+        <p id="message" class="mt-4 text-red-500"></p>
+    </div>
+    <script>
+        function validateForm() {
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const age = document.getElementById('age').value;
+            let message = '';
+
+            if (name === '') {
+                message += 'Name is required. ';
+            }
+            if (email === '' || !email.includes('@')) {
+                message += 'Valid email is required. ';
+            }
+            if (age === '' || age < 18) {
+                message += 'Age must be at least 18. ';
+            }
+
+            document.getElementById('message').textContent = message;
+
+            return message === '';
+        }
+    </script>
+</body>
+</html>

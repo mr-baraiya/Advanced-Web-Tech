@@ -1,0 +1,40 @@
+<!-- 
+ write a javascript that handles following mouse events.add necessary elemants.
+ a.javaScript gives the key code for the key pressed.
+ b.if the key pressed is "a","e","i","o","u" the script should announce that a vowel is pressed.
+ c.when the key is released the background color of the page should change to light blue.
+  -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Program-8</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+</head>
+<body>
+    <div class="p-5">
+        <input type="text" class="border-2 border-gray-300 p-3 rounded w-full" onkeydown="keyPressed(event)" onkeyup="keyReleased()" placeholder="Press any key..." />
+        <p id="keyInfo" class="mt-4 text-lg"></p>
+    </div>
+    <script>
+        function keyPressed(event) {
+            const keyCode = event.keyCode || event.which;
+            const keyChar = String.fromCharCode(keyCode).toLowerCase();
+            let message = `Key Code: ${keyCode}. `;
+
+            if (['a', 'e', 'i', 'o', 'u'].includes(keyChar)) {
+                message += "You pressed a vowel!";
+            } else {
+                message += "You pressed a consonant.";
+            }
+
+            document.getElementById('keyInfo').textContent = message;
+        }
+
+        function keyReleased() {
+            document.body.style.backgroundColor = "lightblue";
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,28 @@
+<!-- change  background color on Click of button. -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Program-1</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+</head>
+<body>
+    <div class="p-5">
+        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold p-5 rounded" onclick="changeColor()">Click Me!</button>
+    </div>
+    <script>
+        function changeColor() {
+            document.body.style.backgroundColor = RandomColor();
+        }
+        function RandomColor() {
+            const letters = '0123456789ABCDEF';
+            let color = '#';
+            for (let i = 0; i < 6; i++) {
+                color += letters[Math.floor(Math.random() * 16)];
+            }
+            return color;
+        }
+    </script>
+</body>
+</html>

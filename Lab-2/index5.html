@@ -1,0 +1,26 @@
+<!-- WAP to demostrate change in properties of HTML elements using JavaScript -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Program-5</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+</head>
+<body>
+    <div class="p-5">
+        <h1 id="header" class="text-3xl font-bold mb-4">Hello, World!</h1>
+        <button class="bg-green-500 hover:bg-green-700 text-white font-bold p-3 rounded" onclick="changeHeader()">Change Header</button>
+        <p id="status"></p>
+    </div>
+    <script>
+        function changeHeader() {
+            const header = document.getElementById('header');
+            header.textContent = "Header Changed!";
+            header.style.color = "red";
+            header.style.fontSize = "40px";
+            document.getElementById('status').textContent = "Header properties changed successfully.";
+        }
+    </script>
+</body>
+</html>

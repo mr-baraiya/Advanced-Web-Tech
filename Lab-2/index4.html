@@ -1,0 +1,37 @@
+<!-- WAP to recognize which form event is fired. -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Program-4</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+</head>
+<body>
+    <div class="p-5 w-3xl">
+        <form class="form border-2 border-gray-300 p-5 rounded">
+            <label class="mr-2 font-bold">Name:</label>
+            <input type="text" class="w-2xl border-2 border-gray-300 p-3 rounded mb-4" placeholder="Type something..." 
+                onfocus="formEvent('Input Focused')" 
+                onblur="formEvent('Input Blurred')" 
+                onchange="formEvent('Input Changed')" 
+                oninput="formEvent('Input Inputted')" />
+            <br/>
+            <label class="mr-2 font-bold">Email:</label>
+            <input type="email" class="w-2xl border-2 border-gray-300 p-3 rounded mb-4" placeholder="Type your email..." 
+                onfocus="formEvent('Email Focused')" 
+                onblur="formEvent('Email Blurred')" 
+                onchange="formEvent('Email Changed')" 
+                oninput="formEvent('Email Inputted')" />
+            <br/>
+            <input type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold p-3 rounded" value="Submit" 
+                onclick="formEvent('Form Submitted'); return false;" />
+        </form>
+    </div>
+    <script>
+        function formEvent(eventType) {
+            console.log(eventType + " event fired");
+        }
+    </script>
+</body>
+</html>

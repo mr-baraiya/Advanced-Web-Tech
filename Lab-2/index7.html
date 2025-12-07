@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Program-7</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-100 min-h-screen flex items-center justify-center">
+  <div class="w-full max-w-4xl mx-auto bg-white shadow-lg rounded-2xl p-6">
+    <h1 class="text-2xl font-bold mb-4 text-center">Student CRUD</h1>
+
+    <!-- Form -->
+    <form id="studentForm" class="grid md:grid-cols-4 gap-3 mb-6">
+      <div class="flex flex-col">
+        <label class="text-sm font-semibold mb-1">ID</label>
+        <input id="studentId" type="number" required
+               class="border rounded-md px-2 py-1 focus:outline-none focus:ring w-full">
+      </div>
+
+      <div class="flex flex-col">
+        <label class="text-sm font-semibold mb-1">Name</label>
+        <input id="studentName" type="text" required
+               class="border rounded-md px-2 py-1 focus:outline-none focus:ring w-full">
+      </div>
+
+      <div class="flex flex-col">
+        <label class="text-sm font-semibold mb-1">Age</label>
+        <input id="studentAge" type="number" required
+               class="border rounded-md px-2 py-1 focus:outline-none focus:ring w-full">
+      </div>
+
+      <div class="flex flex-col">
+        <label class="text-sm font-semibold mb-1">Course</label>
+        <input id="studentCourse" type="text" required
+               class="border rounded-md px-2 py-1 focus:outline-none focus:ring w-full">
+      </div>
+
+      <div class="md:col-span-4 flex gap-3 mt-2">
+        <button type="submit" id="submitBtn"
+                class="px-4 py-2 rounded-md bg-blue-600 text-white font-semibold hover:bg-blue-700">
+          Add Student
+        </button>
+        <button type="button" id="cancelEditBtn"
+                class="px-4 py-2 rounded-md bg-gray-300 text-gray-800 font-semibold hover:bg-gray-400 hidden">
+          Cancel Edit
+        </button>
+      </div>
+    </form>
+
+    <!-- Table -->
+    <div class="overflow-x-auto">
+      <table class="min-w-full border text-sm">
+        <thead class="bg-slate-200">
+          <tr>
+            <th class="border px-3 py-2 text-left">ID</th>
+            <th class="border px-3 py-2 text-left">Name</th>
+            <th class="border px-3 py-2 text-left">Age</th>
+            <th class="border px-3 py-2 text-left">Course</th>
+            <th class="border px-3 py-2 text-center">Actions</th>
+          </tr>
+        </thead>
+        <tbody id="studentsTableBody"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <script>
+    // Static array of students
+    let students = [
+      { id: 1, name: "Amit", age: 20, course: "CSE" },
+      { id: 2, name: "Priya", age: 21, course: "ECE" },
+    ];
+
+    let editIndex = null;
+
+    const studentForm = document.getElementById("studentForm");
+    const studentId = document.getElementById("studentId");
+    const studentName = document.getElementById("studentName");
+    const studentAge = document.getElementById("studentAge");
+    const studentCourse = document.getElementById("studentCourse");
+    const studentsTableBody = document.getElementById("studentsTableBody");
+    const submitBtn = document.getElementById("submitBtn");
+    const cancelEditBtn = document.getElementById("cancelEditBtn");
+
+    function renderTable() {
+      studentsTableBody.innerHTML = "";
+
+      students.forEach((student, index) => {
+        const tr = document.createElement("tr");
+        tr.className = index % 2 === 0 ? "bg-white" : "bg-slate-50";
+
+        tr.innerHTML = `
+          <td class="border px-3 py-2">${student.id}</td>
+          <td class="border px-3 py-2">${student.name}</td>
+          <td class="border px-3 py-2">${student.age}</td>
+          <td class="border px-3 py-2">${student.course}</td>
+          <td class="border px-3 py-2 text-center space-x-2">
+            <button onclick="editStudent(${index})"
+                    class="px-2 py-1 text-xs rounded bg-amber-500 text-white hover:bg-amber-600">
+              Edit
+            </button>
+            <button onclick="deleteStudent(${index})"
+                    class="px-2 py-1 text-xs rounded bg-red-600 text-white hover:bg-red-700">
+              Delete
+            </button>
+          </td>
+        `;
+
+        studentsTableBody.appendChild(tr);
+      });
+    }
+
+    function resetForm() {
+      studentId.value = "";
+      studentName.value = "";
+      studentAge.value = "";
+      studentCourse.value = "";
+      editIndex = null;
+      submitBtn.textContent = "Add Student";
+      cancelEditBtn.classList.add("hidden");
+    }
+
+    window.editStudent = function (index) {
+      const s = students[index];
+      studentId.value = s.id;
+      studentName.value = s.name;
+      studentAge.value = s.age;
+      studentCourse.value = s.course;
+
+      editIndex = index;
+      submitBtn.textContent = "Update Student";
+      cancelEditBtn.classList.remove("hidden");
+    };
+
+    window.deleteStudent = function (index) {
+      if (confirm("Are you sure you want to delete this student?")) {
+        students.splice(index, 1);
+        renderTable();
+        if (editIndex === index) {
+          resetForm();
+        }
+      }
+    };
+
+    studentForm.addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      const newStudent = {
+        id: Number(studentId.value),
+        name: studentName.value.trim(),
+        age: Number(studentAge.value),
+        course: studentCourse.value.trim(),
+      };
+
+      if (editIndex === null) {
+        // Create
+        students.push(newStudent);
+      } else {
+        // Update
+        students[editIndex] = newStudent;
+      }
+
+      renderTable();
+      resetForm();
+    });
+
+    cancelEditBtn.addEventListener("click", function () {
+      resetForm();
+    });
+
+    renderTable();
+  </script>
+</body>
+</html>
